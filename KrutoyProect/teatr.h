@@ -12,4 +12,6 @@ public:
 	void setName(std::string name);
 	void setPrice(int age);
 	void setSeats(int seats);
+	friend std::ostream& operator<<(std::ostream& out, const Teatr& teatr);
+	friend std::istream& operator>>(std::istream& in, Teatr& teatr);
 };

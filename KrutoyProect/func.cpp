@@ -96,30 +96,8 @@ void Func::Dobavit(Teatr* arr1, int n) {
 		f << arr1[i].getName() << " " << arr1[i].getPrice() << " " << arr1[i].getSeats() << endl;
 	}
 	f.close();
+	delete[]arr;
 }
-void Func::Vivod(Teatr* arr, int count) {
-	ifstream r("testik.txt");
-	if (!r.is_open()) {
-		return;
-	}
-	int n = 0;
-	r >> n;
-	if (n <= 0) {
-		return;
-	}
-	r.close();
-	if (arr == nullptr)
-		return;
-	cout << "---------------------------------------"<<endl;
-	for (int i = 0; i < n - count; i++) {
-		cout << i + 1 << ". Название: " << arr[i].getName() << endl;
-		cout << "   Цена: " << arr[i].getPrice() << endl;
-		cout << "   Количество мест: " << arr[i].getSeats() << endl;
-		cout << "---------------------------------------" << endl;
-	}
-	cout << "" << endl;
-}
-
 void Func::Find(Teatr* arr,int r) {
 	ifstream f("testik.txt");
 	if (!f.is_open()) {
@@ -134,56 +112,44 @@ void Func::Find(Teatr* arr,int r) {
 	if (r == 1) {
 		string name;
 		int k = 0;
-		cout << "Введите название: ";
+		cout << "Enter a title: ";
 		cin >> name;
 		for (int i = 0; i < n; i++) {
-			if (arr[i].getName().compare(name)) {
+			if (!arr[i].getName().compare(name)) {
 				k++;
-				cout << "---------------------------------------" << endl;
-				cout << k << ". Название: " << arr[i].getName() << endl;
-				cout << "   Цена: " << arr[i].getPrice() << endl;
-				cout << "   Количество мест: " << arr[i].getSeats() << endl;
-				cout << "---------------------------------------" << endl;
+				cout << k << ". " << arr[i];
 			}
 		}
 		if (k < 1)
-			cout << "Ничего не найдено " << endl;
+			cout << "Nothing was found " << endl;
 	}
 	else if (r == 2) {
 		int price;
 		int k = 0;
-		cout << "Введите цену: ";
+		cout << "Enter the price: ";
 		cin >> price;
 		for (int i = 0; i < n; i++) {
 			if (arr[i].getPrice() == price) {
 				k++;
-				cout << "---------------------------------------" << endl;
-				cout << k << ". Название: " << arr[i].getName() << endl;
-				cout << "   Цена: " << arr[i].getPrice() << endl;
-				cout << "   Количество мест: " << arr[i].getSeats() << endl;
-				cout << "---------------------------------------" << endl;
+				cout << k << ". " << arr[i];
 			}
 		}
 		if (k < 1)
-			cout << "Ничего не найдено " << endl;
+			cout << "Nothing was found " << endl;
 	}
 	else if (r == 3) {
 		int seats;
 		int k = 0;
-		cout << "Введите количество мест: ";
+		cout << "Enter the number of seats: ";
 		cin >> seats;
 		for (int i = 0; i < n; i++) {
 			if (arr[i].getSeats() == seats) {
 				k++;
-				cout << "---------------------------------------" << endl;
-				cout << k << ". Название: " << arr[i].getName() << endl;
-				cout << "   Цена: " << arr[i].getPrice() << endl;
-				cout << "   Количество мест: " << arr[i].getSeats() << endl;
-				cout << "---------------------------------------" << endl;
+				cout << k << ". " << arr[i];
 			}
 		}
 		if (k < 1)
-			cout << "Ничего не найдено " << endl;
+			cout << "Nothing was found " << endl;
 	}
 	return;
 }
@@ -199,22 +165,18 @@ void Func::Edit(Teatr* arr, int r) {
 	}
 	f.close();
 	int answer;
-	cout << "---------------------------------------" << endl;
-	cout << "1. Название: " << arr[r].getName() << endl;
-	cout << "2. Цена: " << arr[r].getPrice() << endl;
-	cout << "3. Количество мест: " << arr[r].getSeats() << endl;
-	cout << "---------------------------------------" << endl;
-	cout << "Что редактировать: ";
+	cout << arr[r];
+	cout << "What to edit: ";
 	cin >> answer;
 	if (answer == 1) {
 		string name;
-		cout << "Введите имя: ";
+		cout << "Enter a name: ";
 		cin >> name;
 		arr[r].setName(name);
 	}
 	else if (answer == 2) {
 		int price;
-		cout << "Введите цену: ";
+		cout << "Enter the price: ";
 		if (!(cin >> price)) {
 			cin.clear();
 			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -224,7 +186,7 @@ void Func::Edit(Teatr* arr, int r) {
 	}
 	else if (answer == 3) {
 		int seats;
-		cout << "Введите количество мест: ";
+		cout << "Enter the number of seats: ";
 		if (!(cin >> seats)) {
 			cin.clear();
 			cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -237,4 +199,14 @@ void Func::Edit(Teatr* arr, int r) {
 	}
 	Save(arr, n);
 	return;
+}
+int Func::getLengthArr() {
+	ifstream f("testik.txt");
+	if (!f.is_open()) {
+		return 0;
+	}
+	int n = 0;
+	f >> n;
+	f.close();
+	return n;
 }
